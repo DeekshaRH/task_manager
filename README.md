@@ -21,13 +21,13 @@ A full-stack task management application built with FastAPI (Python) backend and
 ![Dashboard](screenshots/Dashboard.png)
 
 ### Add Task
-![Add Task](screenshots/Add Task.png)
+![Add Task](screenshots/Add\ Task.png)
 
 ### Task List
 ![Task List](screenshots/task-list.png)
 
 ### Edit Task
-![Edit Task](screenshots/Task Edit.png)
+![Edit Task](screenshots/Task\ Edit.png)
 
 ## 🛠️ Tech Stack
 
