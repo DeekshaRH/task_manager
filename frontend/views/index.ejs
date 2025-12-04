@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Manager</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📋 Task Manager</h1>
+            <p>Organize your tasks efficiently</p>
+        </header>
+
+        <!-- Stats Section -->
+        <div class="stats-container">
+            <div class="stat-card">
+                <h3><%= stats.total %></h3>
+                <p>Total Tasks</p>
+            </div>
+            <div class="stat-card pending">
+                <h3><%= stats.pending %></h3>
+                <p>Pending</p>
+            </div>
+            <div class="stat-card in-progress">
+                <h3><%= stats.in_progress %></h3>
+                <p>In Progress</p>
+            </div>
+            <div class="stat-card completed">
+                <h3><%= stats.completed %></h3>
+                <p>Completed</p>
+            </div>
+        </div>
+
+        <!-- Add Task Form -->
+        <div class="form-container">
+            <h2>Add New Task</h2>
+            <form id="taskForm">
+                <div class="form-group">
+                    <label for="title">Task Title *</label>
+                    <input type="text" id="title" name="title" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="description">Description</label>
+                    <textarea id="description" name="description" rows="3"></textarea>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="priority">Priority</label>
+                        <select id="priority" name="priority">
+                            <option value="low">Low</option>
+                            <option value="medium" selected>Medium</option>
+                            <option value="high">High</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="status">Status</label>
+                        <select id="status" name="status">
+                            <option value="pending" selected>Pending</option>
+                            <option value="in_progress">In Progress</option>
+                            <option value="completed">Completed</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="due_date">Due Date</label>
+                        <input type="date" id="due_date" name="due_date">
+                    </div>
+                </div>
+                
+                <button type="submit" class="btn btn-primary">Add Task</button>
+            </form>
+        </div>
+
+        <!-- Filter Section -->
+        <div class="filter-container">
+            <button class="filter-btn active" data-filter="all">All</button>
+            <button class="filter-btn" data-filter="pending">Pending</button>
+            <button class="filter-btn" data-filter="in_progress">In Progress</button>
+            <button class="filter-btn" data-filter="completed">Completed</button>
+        </div>
+
+        <!-- Tasks List -->
+        <div class="tasks-container">
+            <h2>Your Tasks</h2>
+            <div id="tasksList">
+                <% if (tasks.length === 0) { %>
+                    <div class="empty-state">
+                        <p>No tasks yet. Add one to get started!</p>
+                    </div>
+                <% } else { %>
+                    <% tasks.forEach(task => { %>
+                        <div class="task-card" data-status="<%= task.status %>">
+                            <div class="task-header">
+                                <h3><%= task.title %></h3>
+                                <span class="priority-badge <%= task.priority %>"><%= task.priority %></span>
+                            </div>
+                            
+                            <% if (task.description) { %>
+                                <p class="task-description"><%= task.description %></p>
+                            <% } %>
+                            
+                            <div class="task-meta">
+                                <span class="status-badge <%= task.status %>"><%= task.status.replace('_', ' ') %></span>
+                                <% if (task.due_date) { %>
+                                    <span class="due-date">📅 <%= new Date(task.due_date).toLocaleDateString() %></span>
+                                <% } %>
+                            </div>
+                            
+                            <div class="task-actions">
+                                <button class="btn btn-sm btn-edit" onclick="editTask(<%= task.id %>)">Edit</button>
+                                <button class="btn btn-sm btn-delete" onclick="deleteTask(<%= task.id %>)">Delete</button>
+                            </div>
+                        </div>
+                    <% }); %>
+                <% } %>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Modal -->
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Edit Task</h2>
+            <form id="editTaskForm">
+                <input type="hidden" id="editTaskId">
+                
+                <div class="form-group">
+                    <label for="editTitle">Task Title *</label>
+                    <input type="text" id="editTitle" name="title" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="editDescription">Description</label>
+                    <textarea id="editDescription" name="description" rows="3"></textarea>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="editPriority">Priority</label>
+                        <select id="editPriority" name="priority">
+                            <option value="low">Low</option>
+                            <option value="medium">Medium</option>
+                            <option value="high">High</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="editStatus">Status</label>
+                        <select id="editStatus" name="status">
+                            <option value="pending">Pending</option>
+                            <option value="in_progress">In Progress</option>
+                            <option value="completed">Completed</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="editDueDate">Due Date</label>
+                        <input type="date" id="editDueDate" name="due_date">
+                    </div>
+                </div>
+                
+                <button type="submit" class="btn btn-primary">Update Task</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="/js/script.js"></script>
+</body>
+</html>
