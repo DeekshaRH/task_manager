@@ -2,7 +2,7 @@
 
 A full-stack task management application built with FastAPI (Python) backend and Node.js (Express + EJS) frontend, using MySQL database.
 
-![Task Manager](screenshots/dashboard.png)
+![Task Manager](screenshots/Dashboard.png)
 
 ## 🚀 Features
 
@@ -18,16 +18,16 @@ A full-stack task management application built with FastAPI (Python) backend and
 ## 📸 Screenshots
 
 ### Dashboard
-![Dashboard](screenshots/dashboard.png)
+![Dashboard](screenshots/Dashboard.png)
 
 ### Add Task
-![Add Task](screenshots/add-task.png)
+![Add Task](screenshots/Add Task.png)
 
 ### Task List
 ![Task List](screenshots/task-list.png)
 
 ### Edit Task
-![Edit Task](screenshots/edit-task.png)
+![Edit Task](screenshots/Task Edit.png)
 
 ## 🛠️ Tech Stack
 
